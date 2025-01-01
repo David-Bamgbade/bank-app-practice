@@ -46,14 +46,13 @@ class BankAppApplicationTests {
         assertTrue(response.isSuccess());
     }
 
-//    @Test
-//    void testForCustomerToChangePassword() {
-//        ForgetPasswordRequest request = new ForgetPasswordRequest();
-//        request.setEmail("john.doe@gmail.com");
-//        request.setPassword("1234");
-//        ForgetPasswordResponse response = customerService.forgetPassword(request);
-//
-//    }
+    @Test
+    void testForCustomerToChangePassword() {
+        ForgetPasswordRequest request = new ForgetPasswordRequest();
+        request.setEmail("2ceeishere@gmail.com");
+        ForgetPasswordResponse response = customerService.forgetPassword(request);
+        assertTrue(response.isSuccess());
+    }
 
 
 

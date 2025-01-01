@@ -10,5 +10,5 @@ import com.bankapp.dto.response.ForgetPasswordResponse;
 public interface CustomerService {
     CustomerSignUpResponse signUp(CustomerSignUpRequest request);
     CustomerLoginResponse login(CustomerLoginRequest request);
-//    ForgetPasswordResponse forgetPassword(ForgetPasswordRequest request);
+    ForgetPasswordResponse forgetPassword(ForgetPasswordRequest request);
 }

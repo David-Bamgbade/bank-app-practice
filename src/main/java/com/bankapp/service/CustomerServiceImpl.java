@@ -27,15 +27,15 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerSignUpResponse signUp(CustomerSignUpRequest request) {
         Customer customer = new Customer();
+        CustomerSignUpResponse response = new CustomerSignUpResponse();
         DetailValidation validation = new DetailValidation();
         customer.setFirstName(validation.validateFirstName(request.getFirstName()));
         customer.setLastName(validation.validateLastName(request.getLastName()));
         customer.setEmail(validation.validateEmail(request.getEmail()));
         customer.setPassword(request.getPassword());
         customer.setPhoneNumber(validation.validatePhoneNumber(request.getPhoneNumber()));
-        emailService.sendWelcomeEmail(request.getEmail(), request.getFirstName());
+//        emailService.sendWelcomeEmail(request.getEmail(), request.getFirstName());
         customerRepo.save(customer);
-        CustomerSignUpResponse response = new CustomerSignUpResponse();
         response.setSuccess(true);
         response.setMessage("Successfully signed up");
         return response;
@@ -56,13 +56,21 @@ public class CustomerServiceImpl implements CustomerService {
         return response;
     }
 
-//    @Override
-//    public ForgetPasswordResponse forgetPassword(ForgetPasswordRequest request) {
-//        Optional <Customer> findCustomer = customerRepo.findByEmailAndPassword(request.getEmail(), request.getPassword());
-//        if (findCustomer.isPresent()) {
-//            findCustomer.get().setPassword(request.getPassword());
-//        }
-//        return null;
-//    }
+    @Override
+    public ForgetPasswordResponse forgetPassword(ForgetPasswordRequest request) {
+        Optional <Customer> findCustomer = customerRepo.findByEmail(request.getEmail());
+        if (findCustomer.isPresent()) {
+//            emailService.sendOtp(request.getEmail());
+            findCustomer.get().setPassword(request.getPassword());
+        }
+        else {
+            throw new RuntimeException("Not SignedUp");
+        }
+        ForgetPasswordResponse response = new ForgetPasswordResponse();
+        response.setSuccess(true);
+        return response;
+    }
+
+
 
 }
